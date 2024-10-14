@@ -1,7 +1,7 @@
 package com.spring.integration.withoutadapter.service;
 
 import com.spring.integration.withoutadapter.gateway.MyGateway;
-import com.spring.integration.withoutadapter.util.Constants;
+import com.spring.integration.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -55,9 +55,9 @@ public class KafkaService {
 
     }
 
-    @KafkaListener(topics = Constants.SPRING_KAFKA_CONSUMER_TOPIC, groupId = "foo")
-    public void Listener(String message){
-        System.out.println("message received from first_test " + message);
-        gateway.send(message);
-    }
+//    @KafkaListener(topics = Constants.SPRING_KAFKA_CONSUMER_TOPIC, groupId = "foo")
+//    public void Listener(String message){
+//        System.out.println("message received from first_test " + message);
+//        gateway.send(message);
+//    }
 }

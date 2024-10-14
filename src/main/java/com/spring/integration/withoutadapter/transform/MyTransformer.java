@@ -1,6 +1,6 @@
 package com.spring.integration.withoutadapter.transform;
 
-import com.spring.integration.withoutadapter.util.JsonUtility;
+import com.spring.integration.util.JsonUtility;
 import org.json.JSONObject;
 import org.springframework.integration.annotation.Transformer;
 import org.springframework.stereotype.Service;

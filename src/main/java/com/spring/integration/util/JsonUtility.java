@@ -1,4 +1,4 @@
-package com.spring.integration.withoutadapter.util;
+package com.spring.integration.util;
 
 import org.json.JSONObject;
 import org.json.XML;

@@ -1,4 +1,4 @@
-package com.spring.integration.withoutadapter.util;
+package com.spring.integration.util;
 
 public class Constants {
     public final static String SPRING_KAFKA_PRODUCER_TOPIC="json_producer_topic";
