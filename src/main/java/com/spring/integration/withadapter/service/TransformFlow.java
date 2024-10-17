@@ -1,16 +1,13 @@
-package com.spring.integration.withadapter.configuration;
+package com.spring.integration.withadapter.service;
 
 import com.spring.integration.util.JsonUtility;
 import org.json.JSONObject;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.Transformer;
-import org.springframework.integration.channel.DirectChannel;
 import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.GenericMessage;
+import org.springframework.stereotype.Service;
 
-@Configuration
+@Service
 public class TransformFlow {
 
     @Transformer(inputChannel = "kafkaConsumerChannel", outputChannel = "kafkaProducerChannel")

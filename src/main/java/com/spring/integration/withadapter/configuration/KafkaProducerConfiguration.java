@@ -3,17 +3,16 @@ package com.spring.integration.withadapter.configuration;
 import com.spring.integration.util.Constants;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.expression.common.LiteralExpression;
-import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.kafka.outbound.KafkaProducerMessageHandler;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 
 import java.util.HashMap;
@@ -23,8 +22,6 @@ import java.util.Map;
 public class KafkaProducerConfiguration {
     @Value(value = "${spring.kafka.bootstrap-address}")
     private String servers;
-
-    private static final String OUTPUT_TOPIC = "json_topic";  // Second Kafka topic for JSON messages
 
     @Bean
     public ProducerFactory<String, String> producerFactory() {
@@ -49,13 +46,8 @@ public class KafkaProducerConfiguration {
     }
 
     @Bean
-    public MessageChannel kafkaProducerChannel() {
-        return new DirectChannel();
-    }
-
-    @Bean
     public IntegrationFlow kafkaProducerFlow() {
-        return IntegrationFlow.from(kafkaProducerChannel())
+        return IntegrationFlow.from("kafkaProducerChannel")
                 .handle(kafkaMessageHandler())
                 .get();
     }

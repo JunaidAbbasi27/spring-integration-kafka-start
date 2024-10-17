@@ -3,6 +3,8 @@ package com.spring.integration.withadapter.configuration;
 import com.spring.integration.util.Constants;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,11 @@ public class KafkaConsumerConfiguration {
 
     @Value(value = "${spring.kafka.bootstrap-address}")
     private String servers;
+
+    @Autowired
+    @Qualifier("kafkaConsumerChannel")
+    private MessageChannel outputMessageChannel;
+
     private static final String GROUP_ID = "group_id";
 
     @Bean
@@ -44,12 +51,7 @@ public class KafkaConsumerConfiguration {
     public KafkaMessageDrivenChannelAdapter<String, String> kafkaInbound() {
         KafkaMessageDrivenChannelAdapter<String, String> adapter =
                 new KafkaMessageDrivenChannelAdapter<>(kafkaListenerContainer());
-        adapter.setOutputChannel(kafkaConsumerChannel()); // Route to consumer channel
+        adapter.setOutputChannel(outputMessageChannel); // Route to consumer channel
         return adapter;
-    }
-
-    @Bean
-    public MessageChannel kafkaConsumerChannel() {
-        return new DirectChannel(); // Messages from Kafka go here
     }
 }
